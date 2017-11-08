@@ -103,6 +103,8 @@ void MainWindow::readData(){
 
 void MainWindow::on_pushButton_clicked()
 {
+    resetUi();
+
     int selectedItemIndex = ui->listWidget->currentRow();
     QHidDeviceInfo selectedDevice = connectedHidDevices.at(selectedItemIndex);
     uint vendor = selectedDevice.vendorId/*0x046d*/;
@@ -112,13 +114,15 @@ void MainWindow::on_pushButton_clicked()
     if(mId){
         qDebug("Opened the device");
         pHidApi->setNonBlocking(mId); // set the read() to be non-blocking
+
+        QTimer * timer = new QTimer(this);
+        connect(timer, SIGNAL(timeout()), this, SLOT(readData()));
+        timer->start(1);
+
     }else{
         qCritical("Couldn't open device");
     }
 
-    QTimer * timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(readData()));
-    timer->start(1);
 
 }
 
@@ -141,4 +145,8 @@ void MainWindow::scanConnectedHidDevices(ushort vendorId, ushort productId){
 void MainWindow::on_pushButton_2_clicked()
 {
     scanConnectedHidDevices();
+}
+
+void MainWindow::resetUi(){
+    qDebug("Reset the ui when connected to a new device");
 }

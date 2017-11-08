@@ -18,6 +18,7 @@ public:
     ~MainWindow();
 private:
     void scanConnectedHidDevices(ushort vendorId = 0, ushort productId=0);
+    void resetUi();
 private slots:
     void readData();
 
