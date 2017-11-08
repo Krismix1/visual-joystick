@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>328</width>
+    <width>604</width>
     <height>369</height>
    </rect>
   </property>
@@ -119,6 +119,9 @@
        <property name="text">
         <string>Off</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="1" column="0">
@@ -203,12 +206,18 @@
        <property name="text">
         <string>Off</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="2" column="1">
       <widget class="QLabel" name="btn3StateLabel">
        <property name="text">
         <string>Off</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -217,12 +226,18 @@
        <property name="text">
         <string>Off</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="4" column="1">
       <widget class="QLabel" name="btn5StateLabel">
        <property name="text">
         <string>Off</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -231,12 +246,18 @@
        <property name="text">
         <string>Off</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="6" column="1">
       <widget class="QLabel" name="btn7StateLabel">
        <property name="text">
         <string>Off</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -245,12 +266,18 @@
        <property name="text">
         <string>Off</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="8" column="1">
       <widget class="QLabel" name="btn9StateLabel">
        <property name="text">
         <string>Off</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -259,6 +286,9 @@
        <property name="text">
         <string>Off</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="10" column="1">
@@ -266,12 +296,18 @@
        <property name="text">
         <string>Off</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
      <item row="11" column="1">
       <widget class="QLabel" name="btn12StateLabel">
        <property name="text">
         <string>Off</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
        </property>
       </widget>
      </item>
@@ -412,13 +448,49 @@ background-repeat: none;</string>
      <string/>
     </property>
    </widget>
+   <widget class="QListWidget" name="listWidget">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>10</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>220</y>
+      <width>80</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Connect</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>220</y>
+      <width>91</width>
+      <height>22</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Scan devices</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>328</width>
+     <width>604</width>
      <height>19</height>
     </rect>
    </property>

@@ -26,9 +26,11 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    joystick.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    joystick.h
 
 FORMS    += mainwindow.ui
 

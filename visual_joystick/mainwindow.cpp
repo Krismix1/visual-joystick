@@ -5,6 +5,7 @@
 #include <QThread>
 #include <QTimer>
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -24,6 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     btnStateLabels.append(ui->btn11StateLabel);
     btnStateLabels.append(ui->btn12StateLabel);
 
+
     dPadLabels[0] = ui->dPad1;
     dPadLabels[1] = ui->dPad2;
     dPadLabels[2] = ui->dPad3;
@@ -35,21 +37,8 @@ MainWindow::MainWindow(QWidget *parent) :
     dPadLabels[8] = ui->dPad9;
 
     pHidApi = new QHidApi;
-
-    uint vendor = 0x046d;
-    uint product = 0xc215;
-
-    mId = pHidApi->open(vendor, product, NULL);
-    if(mId){
-        qDebug("Opened the device");
-        pHidApi->setNonBlocking(mId); // set the read() to be non-blocking
-    }else{
-        //qDebug(QString::number(mId).toStdString().c_str());
-    }
-
-    QTimer * timer = new QTimer(this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(readData()));
-    timer->start(1);
+    scanConnectedHidDevices();
+//    ui->listWidget->setSelectionMode(QAbstractItemView::NoSelection);
 
 }
 
@@ -99,13 +88,8 @@ void MainWindow::readData(){
             }
         }
 
-//        qDebug(QString::number(ui->dial->value()).toStdString().c_str());
-//        qDebug((std::bitset<4>(dPadValue)).to_string().c_str());
-//        ui->dial->setValue(dPadValue);
-
 
         QLabel* currentLabel = dPadLabels[dPadValue];
-//        currentLabel->setStyleSheet("QLabel { background-color : black; border-width : 5px; border-color : green; }");
         currentLabel->setStyleSheet("QLabel { background-image: url(:/images/joystick_thumb.png); background-position: center };");
         if(lastDPadLabel && currentLabel != lastDPadLabel){ // not null
             lastDPadLabel->setStyleSheet("QLabel { background-image : none; }");
@@ -116,3 +100,45 @@ void MainWindow::readData(){
     }
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+    int selectedItemIndex = ui->listWidget->currentRow();
+    QHidDeviceInfo selectedDevice = connectedHidDevices.at(selectedItemIndex);
+    uint vendor = selectedDevice.vendorId/*0x046d*/;
+    uint product = selectedDevice.productId/*0xc215*/;
+
+    mId = pHidApi->open(vendor, product, NULL);
+    if(mId){
+        qDebug("Opened the device");
+        pHidApi->setNonBlocking(mId); // set the read() to be non-blocking
+    }else{
+        qCritical("Couldn't open device");
+    }
+
+    QTimer * timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(readData()));
+    timer->start(1);
+
+}
+
+void MainWindow::scanConnectedHidDevices(ushort vendorId, ushort productId){
+
+    connectedHidDevices = pHidApi->enumerate(vendorId, productId);
+    ui->listWidget->clear();
+    foreach(QHidDeviceInfo deviceInfo, connectedHidDevices){
+        QString vendorNumber;
+        vendorNumber.setNum(deviceInfo.vendorId, 16);
+        vendorNumber.insert(0, "0x");
+        QString productNumber;
+        productNumber.setNum(deviceInfo.productId, 16);
+        productNumber.insert(0, "0x");
+        QString info = deviceInfo.manufacturerString + " " + deviceInfo.productString + " " + vendorNumber + " : " + productNumber;
+        ui->listWidget->addItem(info);
+    }
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    scanConnectedHidDevices();
+}

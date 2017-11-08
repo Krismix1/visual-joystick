@@ -16,9 +16,14 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+private:
+    void scanConnectedHidDevices(ushort vendorId = 0, ushort productId=0);
 private slots:
     void readData();
+
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -27,6 +32,8 @@ private:
     QList<QLabel *> btnStateLabels;
     QLabel* dPadLabels[9];
     QLabel* lastDPadLabel;
+
+    QList<QHidDeviceInfo> connectedHidDevices;
 };
 
 #endif // MAINWINDOW_H
